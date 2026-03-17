@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josue Serafim | Data Analyst & Data Scientist</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --bg2: #161b27;
+      --bg3: #1e2535;
+      --accent: #4f8ef7;
+      --accent2: #7c5cfc;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --border: #2a3348;
+    }
+
+    html.light {
+      --bg: #f5f7fa;
+      --bg2: #ffffff;
+      --bg3: #edf0f5;
+      --accent: #2563eb;
+      --accent2: #6d28d9;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #cbd5e1;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(15,17,23,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+
+    .theme-btn {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+    }
+
+    .hero-inner { max-width: 720px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(79,142,247,0.12);
+      border: 1px solid rgba(79,142,247,0.3);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-bottom: 3rem;
+    }
+
+    /* SOBRE */
+    #sobre { background: var(--bg2); }
+
+    .sobre-text {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.8;
+    }
+
+    .sobre-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-item .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* HABILIDADES */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-card:hover { border-color: var(--accent); }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-name { font-weight: 600; font-size: 0.95rem; }
+
+    .skill-level {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 999px;
+    }
+
+    /* EXPERIENCIA */
+    #experiencia { background: var(--bg2); }
+
+    .timeline { position: relative; padding-left: 2rem; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-company { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .timeline-role { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.25rem; }
+    .timeline-period { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .timeline-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* PROJETOS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.25s;
+      display: block;
+    }
+
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+    .project-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .project-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--bg3), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-info { padding: 1.25rem; }
+
+    .project-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.85rem; color: var(--muted); }
+
+    /* FORMACAO */
+    #formacao { background: var(--bg2); }
+
+    .edu-grid { display: grid; gap: 1.25rem; }
+
+    .edu-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .edu-card:hover { border-color: var(--accent); }
+
+    .edu-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .edu-title { font-weight: 700; font-size: 0.95rem; }
+    .edu-inst { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.2rem; }
+    .edu-year { color: var(--muted); font-size: 0.8rem; }
+
+    .cert-card {
+      background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(124,92,252,0.08));
+      border: 1px solid rgba(79,142,247,0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .cert-icon { font-size: 1.8rem; }
+    .cert-name { font-weight: 600; font-size: 0.95rem; }
+    .cert-issuer { color: var(--muted); font-size: 0.85rem; }
+
+    /* CONTATO */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label { font-size: 0.8rem; color: var(--muted); }
+    .contact-value { font-weight: 600; font-size: 0.9rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8rem; }
+      section { padding: 4rem 1.25rem; }
+      .sobre-stats { gap: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JS</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#sobre" data-i18n="nav.about">Sobre</a></li>
+      <li><a href="#habilidades" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#experiencia" data-i18n="nav.experience">Experiência</a></li>
+      <li><a href="#projetos" data-i18n="nav.projects">Projetos</a></li>
+      <li><a href="#contato" data-i18n="nav.contact">Contato</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+      <span class="theme-icon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge" data-i18n="hero.badge">Disponível para novos projetos</div>
+    <h1>Josue <span>Serafim</span></h1>
+    <p class="hero-sub" data-i18n="hero.sub">Analista de Dados Sênior & Data Scientist &mdash; Transformando dados complexos em estratégias de negócio há mais de 20 anos.</p>
+    <div class="hero-cta">
+      <a href="#contato" class="btn btn-primary" data-i18n="hero.cta1">Entre em contato</a>
+      <a href="#experiencia" class="btn btn-outline" data-i18n="hero.cta2">Ver experiência</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="container">
+    <span class="section-label" data-i18n="about.label">Sobre mim</span>
+    <h2 class="section-title" data-i18n="about.title">20+ anos transformando dados em decisões estratégicas</h2>
+    <div class="section-divider"></div>
+    <p class="sobre-text" data-i18n="about.p1">
+      Sou apaixonado pelo universo de dados, com uma carreira dedicada à criação de soluções que sustentam decisões estratégicas baseadas em evidências. Ao longo de 20 anos, atuei em setores críticos como Varejo, Finanças (KPMG), Farmacêutico (Raia Drogasil) e Indústria, sempre com foco em arquitetura de Business Intelligence ponta a ponta.
+    </p>
+    <br>
+    <p class="sobre-text" data-i18n="about.p2">
+      Minha atuação vai além da construção de dashboards. Como Sênior, garanto que a estrutura de dados seja escalável, governada e performática &mdash; desenvolvendo pipelines ETL robustos, gerenciando ambientes Power BI Premium e entregando narrativas visuais que a alta gestão realmente utiliza.
+    </p>
+    <br>
+    <p class="sobre-text" data-i18n="about.p3">
+      Atualmente expandindo fronteiras como <strong style="color:var(--text)">Cientista de Dados</strong>, aplicando Python e estatística para análise preditiva e identificação de padrões &mdash; unindo a solidez de duas décadas em BI com a profundidade analítica do Data Science.
+    </p>
+    <div class="sobre-stats">
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-label" data-i18n="about.stat1">Anos de experiência</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label" data-i18n="about.stat2">Empresas atendidas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7+</div>
+        <div class="stat-label" data-i18n="about.stat3">Setores de atuação</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1x</div>
+        <div class="stat-label" data-i18n="about.stat4">Certificação Microsoft</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="container">
+    <span class="section-label" data-i18n="skills.label">Habilidades</span>
+    <h2 class="section-title" data-i18n="skills.title">Stack técnico</h2>
+    <div class="section-divider"></div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">PowerBI, DAX, M</span>
+          <span class="skill-level" data-i18n="skills.advanced">Avançado</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">B.I. Governance</span>
+          <span class="skill-level" data-i18n="skills.advanced">Avançado</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Excel / VBA</span>
+          <span class="skill-level" data-i18n="skills.advanced">Avançado</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">SQL / NoSQL</span>
+          <span class="skill-level" data-i18n="skills.intermediate">Intermediário</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">SSIS / SSAS / SSRS</span>
+          <span class="skill-level" data-i18n="skills.intermediate">Intermediário</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Python</span>
+          <span class="skill-level" data-i18n="skills.intermediate">Intermediário</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Azure / AWS / GCP</span>
+          <span class="skill-level" data-i18n="skills.intermediate">Intermediário</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Apache Hop</span>
+          <span class="skill-level" data-i18n="skills.intermediate">Intermediário</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Looker Studio</span>
+          <span class="skill-level" data-i18n="skills.basic">Básico</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">QlikSense</span>
+          <span class="skill-level" data-i18n="skills.basic">Básico</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Tableau</span>
+          <span class="skill-level" data-i18n="skills.basic">Básico</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <span class="skill-name">Metabase</span>
+          <span class="skill-level" data-i18n="skills.basic">Básico</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div class="container">
+    <span class="section-label" data-i18n="exp.label">Carreira</span>
+    <h2 class="section-title" data-i18n="exp.title">Experiência profissional</h2>
+    <div class="section-divider"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-company">JS Soluções Tecnológicas</div>
+        <div class="timeline-role" data-i18n="exp.role.senior">Analista de Dados Senior</div>
+        <div class="timeline-period" data-i18n="exp.js.period">07/2023 &mdash; atual</div>
+        <div class="timeline-desc" data-i18n="exp.js.desc">
+          Análise e limpeza de dados com técnicas estatísticas, desenvolvimento de dashboards interativos no PowerBI, construção de cubos OLAP com Analysis Services e processos ETL com Integration Services. Atuação em compliance, segurança de dados e colaboração com equipes multidisciplinares.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-company">KPMG</div>
+        <div class="timeline-role" data-i18n="exp.role.senior">Analista de Dados Senior</div>
+        <div class="timeline-period">10/2022 &mdash; 06/2023</div>
+        <div class="timeline-desc" data-i18n="exp.kpmg.desc">
+          Desenvolvimento de soluções PowerBI com dashboards e relatórios personalizados, criação de cubos OLAP no Analysis Services e desenvolvimento de processos ETL com Integration Services.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-company">Raia Drogasil</div>
+        <div class="timeline-role" data-i18n="exp.role.senior">Analista de Dados Senior</div>
+        <div class="timeline-period">03/2022 &mdash; 10/2022</div>
+        <div class="timeline-desc" data-i18n="exp.raia.desc">
+          Governança e gestão de acessos ao ambiente PowerBI Premium, controle de capacidades, criação e melhoria de relatórios, gestão de projetos de BI e compliance com regulamentações da indústria farmacêutica.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-company">Neogrid</div>
+        <div class="timeline-role" data-i18n="exp.role.analyst">Analista de Dados</div>
+        <div class="timeline-period">07/2021 &mdash; 03/2022</div>
+        <div class="timeline-desc" data-i18n="exp.neogrid.desc">
+          Garantia de qualidade dos dados gerados pelo varejo, gestão de planos de ação e BI com PowerBI em DataQuality, implementação de melhorias em dashboards e ETL.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-company">Grupo Schumann</div>
+        <div class="timeline-role" data-i18n="exp.role.analyst">Analista de Dados</div>
+        <div class="timeline-period">03/2020 &mdash; 03/2021</div>
+        <div class="timeline-desc" data-i18n="exp.schumann.desc">
+          Criação e gestão de dashboards com PowerBI e Qlikview, ETL com Pentaho e Integration Services, modelagem de cubos com Analysis Services e DataWarehouse.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-company">Selke Tecnologia</div>
+        <div class="timeline-role" data-i18n="exp.role.owner">Analista de Dados / Proprietário</div>
+        <div class="timeline-period">04/2016 &mdash; 12/2019</div>
+        <div class="timeline-desc" data-i18n="exp.selke.desc">
+          Implementação de BI para análise de dados web, Facebook ADS e Google ADS, criação de websites e sistemas de gestão. Gestão empresarial e de pessoas.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos">
+  <div class="container">
+    <span class="section-label" data-i18n="projects.label">Portfólio</span>
+    <h2 class="section-title" data-i18n="projects.title">Exemplos de projetos</h2>
+    <div class="section-divider"></div>
+    <div class="projects-grid">
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiMmNlYmQ5MjAtY2Q5OS00YmVmLTg2NjktZDllZjVkNDU4YzBhIiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/ADS.png" alt="Análise ADS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">📊</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.ads.title">Análise ADS Redes Sociais</div>
+          <div class="project-desc" data-i18n="projects.ads.desc">Conexão direta via API Meta e Google. Acompanhamento de impressões, clicks, CPM, CPC, CTR e investimento em tempo real.</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiNjNjNTc2OWUtY2I3ZS00MWFlLWI3Y2ItNjY3ZTg2ZjE4MTZmIiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/RH" alt="Análise RH" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">👥</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.rh.title">Análise RH</div>
+          <div class="project-desc" data-i18n="projects.rh.desc">Dashboard completo de recursos humanos com indicadores de performance e People Analytics.</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiZjU3NTU5YTEtYjEzMC00OGM5LWI5ODEtMjNhMTI2MGM2NDAyIiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/FINANCEIRO.png" alt="Análise Financeiro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">💰</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.fin.title">Análise Financeiro</div>
+          <div class="project-desc" data-i18n="projects.fin.desc">Painel financeiro com visão de receitas, despesas e indicadores de saúde financeira.</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiM2U0OTcxM2EtZjY5YS00YWYyLWEwMjUtMWJkZjc5NzU4MWQ3IiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/FATURAMENTO.png" alt="Análise Faturamento" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">📈</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.fat.title">Análise Faturamento</div>
+          <div class="project-desc" data-i18n="projects.fat.desc">Acompanhamento de faturamento com drill-down por período, produto e região.</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiNjc3OTBkZDYtZmU4YS00NGZiLWE3MDctOWM0Nzc0ZTg5NDNjIiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/NPS.png" alt="Análise NPS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">⭐</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.nps.title">Análise NPS</div>
+          <div class="project-desc" data-i18n="projects.nps.desc">Conexão direta via API Bitrix para análise de Net Promoter Score em tempo real.</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://app.powerbi.com/view?r=eyJrIjoiNDMwOWM2OWYtNWM2Zi00MDNiLThlYmQtZTNlNmJlZmNlYWI2IiwidCI6IjE1NDcyODZhLTg5ZWQtNDA3Ny1iZTA1LTBjZGQ4MjQ0MTZiOCJ9" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+        <img class="project-img" src="images/BOLSA_VALORES.png" alt="Análise Bolsa de Valores" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="project-img-placeholder" style="display:none;">📉</div>
+        <div class="project-info">
+          <div class="project-title" data-i18n="projects.bolsa.title">Análise Bolsa de Valores</div>
+          <div class="project-desc" data-i18n="projects.bolsa.desc">Dashboard de acompanhamento de ativos com indicadores técnicos e fundamentalistas.</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMACAO -->
+<section id="formacao">
+  <div class="container">
+    <span class="section-label" data-i18n="edu.label">Educação</span>
+    <h2 class="section-title" data-i18n="edu.title">Formação & Certificações</h2>
+    <div class="section-divider"></div>
+    <div class="edu-grid">
+
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-title" data-i18n="edu.ds.title">Cientista de Dados</div>
+          <div class="edu-inst">Data Science Academy</div>
+          <div class="edu-year">2024</div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon">📚</div>
+        <div>
+          <div class="edu-title" data-i18n="edu.pos.title">Pós-Graduação em Gerenciamento de Banco de Dados</div>
+          <div class="edu-inst">Universidade Nove de Julho</div>
+          <div class="edu-year">2016</div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon">🖥️</div>
+        <div>
+          <div class="edu-title" data-i18n="edu.grad.title">Graduação em Web Designer</div>
+          <div class="edu-inst">Universidade Braz Cubas</div>
+          <div class="edu-year">2007</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">Microsoft Certified: Power BI Data Analyst Associate</div>
+        <div class="cert-issuer">Microsoft</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <span class="section-label" data-i18n="contact.label">Contato</span>
+    <h2 class="section-title" data-i18n="contact.title">Vamos conversar?</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+
+      <a href="mailto:josue.serafim@gmail.com" class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">E-mail</div>
+          <div class="contact-value">josue.serafim@gmail.com</div>
+        </div>
+      </a>
+
+      <a href="https://linkedin.com/in/josue-serafim" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">linkedin.com/in/josue-serafim</div>
+        </div>
+      </a>
+
+      <a href="tel:+5549984367172" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label" data-i18n="contact.phone">Telefone</div>
+          <div class="contact-value">+55 49 98436-7172</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p data-i18n="footer.text">&copy; 2025 Josue Serafim &mdash; Analista de Dados & Data Scientist</p>
+</footer>
+
+<script>
+  const translations = {
+    pt: {
+      'nav.about': 'Sobre',
+      'nav.skills': 'Skills',
+      'nav.experience': 'Experiência',
+      'nav.projects': 'Projetos',
+      'nav.contact': 'Contato',
+
+      'hero.badge': 'Disponível para novos projetos',
+      'hero.sub': 'Analista de Dados Sênior & Data Scientist — Transformando dados complexos em estratégias de negócio há mais de 20 anos.',
+      'hero.cta1': 'Entre em contato',
+      'hero.cta2': 'Ver experiência',
+
+      'about.label': 'Sobre mim',
+      'about.title': '20+ anos transformando dados em decisões estratégicas',
+      'about.p1': 'Sou apaixonado pelo universo de dados, com uma carreira dedicada à criação de soluções que sustentam decisões estratégicas baseadas em evidências. Ao longo de 20 anos, atuei em setores críticos como Varejo, Finanças (KPMG), Farmacêutico (Raia Drogasil) e Indústria, sempre com foco em arquitetura de Business Intelligence ponta a ponta.',
+      'about.p2': 'Minha atuação vai além da construção de dashboards. Como Sênior, garanto que a estrutura de dados seja escalável, governada e performática — desenvolvendo pipelines ETL robustos, gerenciando ambientes Power BI Premium e entregando narrativas visuais que a alta gestão realmente utiliza.',
+      'about.p3': 'Atualmente expandindo fronteiras como <strong style="color:var(--text)">Cientista de Dados</strong>, aplicando Python e estatística para análise preditiva e identificação de padrões — unindo a solidez de duas décadas em BI com a profundidade analítica do Data Science.',
+      'about.stat1': 'Anos de experiência',
+      'about.stat2': 'Empresas atendidas',
+      'about.stat3': 'Setores de atuação',
+      'about.stat4': 'Certificação Microsoft',
+
+      'skills.label': 'Habilidades',
+      'skills.title': 'Stack técnico',
+      'skills.advanced': 'Avançado',
+      'skills.intermediate': 'Intermediário',
+      'skills.basic': 'Básico',
+
+      'exp.label': 'Carreira',
+      'exp.title': 'Experiência profissional',
+      'exp.role.senior': 'Analista de Dados Senior',
+      'exp.role.analyst': 'Analista de Dados',
+      'exp.role.owner': 'Analista de Dados / Proprietário',
+      'exp.js.period': '07/2023 — atual',
+      'exp.js.desc': 'Análise e limpeza de dados com técnicas estatísticas, desenvolvimento de dashboards interativos no PowerBI, construção de cubos OLAP com Analysis Services e processos ETL com Integration Services. Atuação em compliance, segurança de dados e colaboração com equipes multidisciplinares.',
+      'exp.kpmg.desc': 'Desenvolvimento de soluções PowerBI com dashboards e relatórios personalizados, criação de cubos OLAP no Analysis Services e desenvolvimento de processos ETL com Integration Services.',
+      'exp.raia.desc': 'Governança e gestão de acessos ao ambiente PowerBI Premium, controle de capacidades, criação e melhoria de relatórios, gestão de projetos de BI e compliance com regulamentações da indústria farmacêutica.',
+      'exp.neogrid.desc': 'Garantia de qualidade dos dados gerados pelo varejo, gestão de planos de ação e BI com PowerBI em DataQuality, implementação de melhorias em dashboards e ETL.',
+      'exp.schumann.desc': 'Criação e gestão de dashboards com PowerBI e Qlikview, ETL com Pentaho e Integration Services, modelagem de cubos com Analysis Services e DataWarehouse.',
+      'exp.selke.desc': 'Implementação de BI para análise de dados web, Facebook ADS e Google ADS, criação de websites e sistemas de gestão. Gestão empresarial e de pessoas.',
+
+      'projects.label': 'Portfólio',
+      'projects.title': 'Exemplos de projetos',
+      'projects.ads.title': 'Análise ADS Redes Sociais',
+      'projects.ads.desc': 'Conexão direta via API Meta e Google. Acompanhamento de impressões, clicks, CPM, CPC, CTR e investimento em tempo real.',
+      'projects.rh.title': 'Análise RH',
+      'projects.rh.desc': 'Dashboard completo de recursos humanos com indicadores de performance e People Analytics.',
+      'projects.fin.title': 'Análise Financeiro',
+      'projects.fin.desc': 'Painel financeiro com visão de receitas, despesas e indicadores de saúde financeira.',
+      'projects.fat.title': 'Análise Faturamento',
+      'projects.fat.desc': 'Acompanhamento de faturamento com drill-down por período, produto e região.',
+      'projects.nps.title': 'Análise NPS',
+      'projects.nps.desc': 'Conexão direta via API Bitrix para análise de Net Promoter Score em tempo real.',
+      'projects.bolsa.title': 'Análise Bolsa de Valores',
+      'projects.bolsa.desc': 'Dashboard de acompanhamento de ativos com indicadores técnicos e fundamentalistas.',
+
+      'edu.label': 'Educação',
+      'edu.title': 'Formação & Certificações',
+      'edu.ds.title': 'Cientista de Dados',
+      'edu.pos.title': 'Pós-Graduação em Gerenciamento de Banco de Dados',
+      'edu.grad.title': 'Graduação em Web Designer',
+
+      'contact.label': 'Contato',
+      'contact.title': 'Vamos conversar?',
+      'contact.phone': 'Telefone',
+
+      'footer.text': '© 2025 Josue Serafim — Analista de Dados & Data Scientist',
+    },
+    en: {
+      'nav.about': 'About',
+      'nav.skills': 'Skills',
+      'nav.experience': 'Experience',
+      'nav.projects': 'Projects',
+      'nav.contact': 'Contact',
+
+      'hero.badge': 'Available for new projects',
+      'hero.sub': 'Senior Data Analyst & Data Scientist — Turning complex data into business strategies for over 20 years.',
+      'hero.cta1': 'Get in touch',
+      'hero.cta2': 'View experience',
+
+      'about.label': 'About me',
+      'about.title': '20+ years turning data into strategic decisions',
+      'about.p1': 'I am passionate about the data universe, with a career dedicated to building solutions that support evidence-based strategic decisions. Over 20 years, I have worked in critical sectors such as Retail, Finance (KPMG), Pharmaceutical (Raia Drogasil) and Industry, always focused on end-to-end Business Intelligence architecture.',
+      'about.p2': 'My work goes beyond building dashboards. As a Senior analyst, I ensure that data infrastructure is scalable, governed and high-performing — developing robust ETL pipelines, managing Power BI Premium environments and delivering visual narratives that executive leadership actually uses.',
+      'about.p3': 'Currently expanding my expertise as a <strong style="color:var(--text)">Data Scientist</strong>, applying Python and statistics for predictive analysis and pattern recognition — combining two decades of BI expertise with the analytical depth of Data Science.',
+      'about.stat1': 'Years of experience',
+      'about.stat2': 'Companies served',
+      'about.stat3': 'Industry sectors',
+      'about.stat4': 'Microsoft Certification',
+
+      'skills.label': 'Skills',
+      'skills.title': 'Tech stack',
+      'skills.advanced': 'Advanced',
+      'skills.intermediate': 'Intermediate',
+      'skills.basic': 'Basic',
+
+      'exp.label': 'Career',
+      'exp.title': 'Professional experience',
+      'exp.role.senior': 'Senior Data Analyst',
+      'exp.role.analyst': 'Data Analyst',
+      'exp.role.owner': 'Data Analyst / Owner',
+      'exp.js.period': '07/2023 — present',
+      'exp.js.desc': 'Data analysis and cleansing using statistical techniques, development of interactive dashboards in PowerBI, OLAP cube construction with Analysis Services, and ETL processes with Integration Services. Work on compliance, data security, and collaboration with multidisciplinary teams.',
+      'exp.kpmg.desc': 'Development of PowerBI solutions with custom dashboards and reports, OLAP cube creation in Analysis Services, and ETL process development with Integration Services.',
+      'exp.raia.desc': 'Governance and access management for Power BI Premium environment, capacity control, report creation and improvement, BI project management, and compliance with pharmaceutical industry regulations.',
+      'exp.neogrid.desc': 'Data quality assurance for retail data, action plan management and BI with PowerBI in DataQuality, implementation of dashboard and ETL improvements.',
+      'exp.schumann.desc': 'Creation and management of dashboards with PowerBI and Qlikview, ETL with Pentaho and Integration Services, cube modeling with Analysis Services and DataWarehouse.',
+      'exp.selke.desc': 'BI implementation for web data analysis, Facebook ADS and Google ADS, website creation and management systems. Business and people management.',
+
+      'projects.label': 'Portfolio',
+      'projects.title': 'Project highlights',
+      'projects.ads.title': 'Social Media ADS Analysis',
+      'projects.ads.desc': 'Direct connection via Meta and Google API. Real-time tracking of impressions, clicks, CPM, CPC, CTR and ad spend.',
+      'projects.rh.title': 'HR Analytics',
+      'projects.rh.desc': 'Complete human resources dashboard with performance indicators and People Analytics.',
+      'projects.fin.title': 'Financial Analysis',
+      'projects.fin.desc': 'Financial dashboard with revenue, expenses and financial health indicators.',
+      'projects.fat.title': 'Revenue Analysis',
+      'projects.fat.desc': 'Revenue tracking with drill-down by period, product and region.',
+      'projects.nps.title': 'NPS Analysis',
+      'projects.nps.desc': 'Direct API connection to Bitrix for real-time Net Promoter Score analysis.',
+      'projects.bolsa.title': 'Stock Market Analysis',
+      'projects.bolsa.desc': 'Asset tracking dashboard with technical and fundamental indicators.',
+
+      'edu.label': 'Education',
+      'edu.title': 'Education & Certifications',
+      'edu.ds.title': 'Data Scientist',
+      'edu.pos.title': 'Postgraduate in Database Management',
+      'edu.grad.title': 'Bachelor in Web Design',
+
+      'contact.label': 'Contact',
+      'contact.title': "Let's talk?",
+      'contact.phone': 'Phone',
+
+      'footer.text': '© 2025 Josue Serafim — Data Analyst & Data Scientist',
+    }
+  };
+
+  let currentLang = 'pt';
+  let isDark = true;
+
+  function toggleTheme() {
+    isDark = !isDark;
+    document.documentElement.classList.toggle('light', !isDark);
+    document.querySelector('.theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const text = translations[lang][key];
+      if (text) el.innerHTML = text;
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+  }
+</script>
+
+</body>
+</html>
