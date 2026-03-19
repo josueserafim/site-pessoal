@@ -96,20 +96,21 @@
     .lang-btn {
       background: none;
       border: none;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 10px;
+      font-size: 1.2rem;
+      padding: 4px 8px;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.2s;
-      letter-spacing: 0.05em;
+      opacity: 0.45;
+      line-height: 1;
     }
 
     .lang-btn.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
+      opacity: 1;
+      background: rgba(79,142,247,0.15);
     }
+
+    .lang-btn:hover { opacity: 0.8; }
 
     .theme-btn {
       background: var(--bg3);
@@ -138,10 +139,24 @@
       justify-content: center;
       text-align: center;
       padding: 6rem 2rem 4rem;
-      background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-inner { max-width: 720px; }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-inner { max-width: 720px; margin: 0 auto; }
 
     .hero-badge {
       display: inline-block;
@@ -512,8 +527,8 @@
       <li><a href="#contato" data-i18n="nav.contact">Contato</a></li>
     </ul>
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('pt')" title="Português">🇧🇷</button>
+      <button class="lang-btn" onclick="setLang('en')" title="English">🇺🇸</button>
     </div>
     <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
       <span class="theme-icon">🌙</span>
@@ -523,6 +538,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-badge" data-i18n="hero.badge">Disponível para novos projetos</div>
     <h1>Josue <span>Serafim</span></h1>
@@ -1041,6 +1057,103 @@
     }
   };
 
+  // ── PARTICLE NETWORK ANIMATION ──────────────────────────────
+  (function () {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    const PARTICLE_COUNT = 70;
+    const MAX_DIST = 150;
+    let particles = [];
+    let W, H;
+
+    function getColors() {
+      const light = document.documentElement.classList.contains('light');
+      return {
+        particle: light ? 'rgba(37,99,235,' : 'rgba(79,142,247,',
+        line:     light ? 'rgba(109,40,217,' : 'rgba(124,92,252,',
+        bg:       light ? 'rgba(245,247,250,' : 'rgba(15,17,23,',
+      };
+    }
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        r: Math.random() * 2 + 1.5,
+      };
+    }
+
+    function init() {
+      resize();
+      particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+    }
+
+    function draw() {
+      const c = getColors();
+      ctx.clearRect(0, 0, W, H);
+
+      // radial gradient overlay
+      const grd = ctx.createRadialGradient(W / 2, 0, 0, W / 2, H / 2, W * 0.7);
+      grd.addColorStop(0, c.particle + '0.08)');
+      grd.addColorStop(1, c.bg + '0)');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, W, H);
+
+      // lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MAX_DIST) {
+            const alpha = (1 - dist / MAX_DIST) * 0.35;
+            ctx.beginPath();
+            ctx.strokeStyle = c.line + alpha + ')';
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // dots
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = c.particle + '0.7)';
+        ctx.fill();
+      });
+    }
+
+    function update() {
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+      });
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', resize);
+    init();
+    loop();
+  })();
+  // ────────────────────────────────────────────────────────────
+
   let currentLang = 'pt';
   let isDark = true;
 
@@ -1060,8 +1173,8 @@
       if (text) el.innerHTML = text;
     });
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', (lang === 'pt' && i === 0) || (lang === 'en' && i === 1));
     });
   }
 </script>
