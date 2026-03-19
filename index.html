@@ -1118,10 +1118,15 @@
   (function () {
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
-    const COUNT = 90;
-    const MAX_DIST = 160;
     let particles = [], W, H;
     let mouse = { x: -999, y: -999 };
+    let COUNT, MAX_DIST;
+
+    function updateConfig() {
+      const mobile = W < 768;
+      COUNT    = mobile ? 35 : 90;
+      MAX_DIST = mobile ? 100 : 160;
+    }
 
     function isLight() { return document.documentElement.classList.contains('light'); }
 
@@ -1146,7 +1151,7 @@
       };
     }
 
-    function init() { resize(); particles = Array.from({ length: COUNT }, createParticle); }
+    function init() { resize(); updateConfig(); particles = Array.from({ length: COUNT }, createParticle); }
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
@@ -1242,10 +1247,8 @@
 
     const ro = new ResizeObserver(() => {
       resize();
-      particles.forEach(p => {
-        p.x = Math.min(p.x, W);
-        p.y = Math.min(p.y, H);
-      });
+      updateConfig();
+      particles = Array.from({ length: COUNT }, createParticle);
     });
     ro.observe(canvas.parentElement);
     init();
