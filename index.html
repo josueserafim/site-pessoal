@@ -42,15 +42,15 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      background: rgba(15,17,23,0.92);
-      backdrop-filter: blur(12px);
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
-      z-index: 100;
+      z-index: 1000;
       padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 64px;
+      isolation: isolate;
     }
 
     .nav-logo {
@@ -141,6 +141,7 @@
       padding: 6rem 2rem 4rem;
       position: relative;
       overflow: hidden;
+      isolation: isolate;
     }
 
     #hero-canvas {
