@@ -1061,92 +1061,126 @@
   (function () {
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
-    const PARTICLE_COUNT = 70;
-    const MAX_DIST = 150;
-    let particles = [];
-    let W, H;
+    const COUNT = 90;
+    const MAX_DIST = 160;
+    let particles = [], W, H;
+    let mouse = { x: -999, y: -999 };
 
-    function getColors() {
-      const light = document.documentElement.classList.contains('light');
-      return {
-        particle: light ? 'rgba(37,99,235,' : 'rgba(79,142,247,',
-        line:     light ? 'rgba(109,40,217,' : 'rgba(124,92,252,',
-        bg:       light ? 'rgba(245,247,250,' : 'rgba(15,17,23,',
-      };
-    }
+    function isLight() { return document.documentElement.classList.contains('light'); }
 
     function resize() {
       W = canvas.width  = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
     }
 
+    function rnd(a, b) { return Math.random() * (b - a) + a; }
+
     function createParticle() {
+      const colors = isLight()
+        ? ['#2563eb', '#6d28d9', '#0ea5e9']
+        : ['#4f8ef7', '#7c5cfc', '#38bdf8'];
       return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2 + 1.5,
+        x: rnd(0, W), y: rnd(0, H),
+        vx: rnd(-0.4, 0.4), vy: rnd(-0.4, 0.4),
+        r: rnd(2, 4.5),
+        color: colors[Math.floor(Math.random() * colors.length)],
+        pulse: rnd(0, Math.PI * 2),
       };
     }
 
-    function init() {
-      resize();
-      particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
-    }
+    function init() { resize(); particles = Array.from({ length: COUNT }, createParticle); }
 
     function draw() {
-      const c = getColors();
       ctx.clearRect(0, 0, W, H);
 
-      // radial gradient overlay
-      const grd = ctx.createRadialGradient(W / 2, 0, 0, W / 2, H / 2, W * 0.7);
-      grd.addColorStop(0, c.particle + '0.08)');
-      grd.addColorStop(1, c.bg + '0)');
+      // background glow
+      const grd = ctx.createRadialGradient(W/2, H*0.3, 0, W/2, H*0.3, W*0.65);
+      grd.addColorStop(0, isLight() ? 'rgba(37,99,235,0.07)' : 'rgba(79,142,247,0.10)');
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, W, H);
 
-      // lines
+      // connection lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.sqrt(dx*dx + dy*dy);
           if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.35;
+            const alpha = (1 - dist / MAX_DIST) * 0.65;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = isLight() ? '#6d28d9' : '#7c5cfc';
+            ctx.lineWidth = 1.2;
+            ctx.shadowColor = isLight() ? '#2563eb' : '#4f8ef7';
+            ctx.shadowBlur = 4;
             ctx.beginPath();
-            ctx.strokeStyle = c.line + alpha + ')';
-            ctx.lineWidth = 0.8;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
+            ctx.restore();
           }
         }
       }
 
-      // dots
+      // mouse connections
       particles.forEach(p => {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 180) {
+          const alpha = (1 - dist / 180) * 0.8;
+          ctx.save();
+          ctx.globalAlpha = alpha;
+          ctx.strokeStyle = isLight() ? '#2563eb' : '#38bdf8';
+          ctx.lineWidth = 1.5;
+          ctx.shadowColor = isLight() ? '#2563eb' : '#38bdf8';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      });
+
+      // particles
+      particles.forEach(p => {
+        p.pulse += 0.03;
+        const glow = Math.sin(p.pulse) * 6 + 8;
+        ctx.save();
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = glow;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = c.particle + '0.7)';
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.9;
         ctx.fill();
+        // inner bright core
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.globalAlpha = 0.5;
+        ctx.fill();
+        ctx.restore();
       });
     }
 
     function update() {
       particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx; p.y += p.vy;
         if (p.x < 0 || p.x > W) p.vx *= -1;
         if (p.y < 0 || p.y > H) p.vy *= -1;
       });
     }
 
-    function loop() {
-      update();
-      draw();
-      requestAnimationFrame(loop);
-    }
+    function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+    canvas.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    });
+    canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
     window.addEventListener('resize', resize);
     init();
