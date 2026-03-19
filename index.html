@@ -146,10 +146,11 @@
 
     #hero-canvas {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
+      display: block;
     }
 
     .hero-inner {
@@ -229,7 +230,7 @@
     /* SECTIONS */
     section { padding: 5rem 2rem; }
 
-    .container { max-width: 960px; margin: 0 auto; }
+    .container { max-width: min(960px, 90vw); margin: 0 auto; }
 
     .section-label {
       display: inline-block;
@@ -534,6 +535,18 @@
       padding: 2rem;
       color: var(--muted);
       font-size: 0.85rem;
+    }
+
+    /* LARGE SCREENS */
+    @media (min-width: 1400px) {
+      .container { max-width: 1100px; }
+      .hero-inner { max-width: 860px; }
+      .hero h1 { font-size: 5rem; }
+    }
+
+    @media (min-width: 1800px) {
+      .container { max-width: 1300px; }
+      .hero-inner { max-width: 1000px; }
     }
 
     /* MOBILE */
@@ -1113,8 +1126,9 @@
     function isLight() { return document.documentElement.classList.contains('light'); }
 
     function resize() {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
+      const hero = canvas.parentElement;
+      W = canvas.width  = hero.clientWidth;
+      H = canvas.height = hero.clientHeight;
     }
 
     function rnd(a, b) { return Math.random() * (b - a) + a; }
@@ -1226,7 +1240,14 @@
     });
     canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
-    window.addEventListener('resize', resize);
+    const ro = new ResizeObserver(() => {
+      resize();
+      particles.forEach(p => {
+        p.x = Math.min(p.x, W);
+        p.y = Math.min(p.y, H);
+      });
+    });
+    ro.observe(canvas.parentElement);
     init();
     loop();
   })();
