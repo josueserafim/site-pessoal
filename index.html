@@ -561,6 +561,139 @@
     @media (max-width: 480px) {
       .nav-links { display: none; }
     }
+
+    /* CASES */
+    #cases { background: var(--bg2); }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr; } }
+
+    .case-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-header {
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .case-title {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .case-badge {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .case-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; flex: 1; }
+
+    .case-block-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .case-problem .case-block-title { color: #f87171; }
+    .case-solution .case-block-title { color: #34d399; }
+
+    .case-problem-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .case-problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .case-problem-item::before {
+      content: '▸';
+      color: #f87171;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .case-solution-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .case-metric {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+
+    .case-metric-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .case-metric-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .case-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .case-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -574,6 +707,7 @@
       <li><a href="#habilidades" data-i18n="nav.skills">Skills</a></li>
       <li><a href="#experiencia" data-i18n="nav.experience">Experiência</a></li>
       <li><a href="#projetos" data-i18n="nav.projects">Projetos</a></li>
+      <li><a href="#cases" data-i18n="nav.cases">Cases</a></li>
       <li><a href="#contato" data-i18n="nav.contact">Contato</a></li>
     </ul>
     <div class="lang-toggle">
@@ -878,6 +1012,114 @@
   </div>
 </section>
 
+<!-- CASES -->
+<section id="cases">
+  <div class="container">
+    <span class="section-label" data-i18n="cases.label">Cases</span>
+    <h2 class="section-title" data-i18n="cases.title">Cases de sucesso</h2>
+    <div class="section-divider"></div>
+    <div class="cases-grid">
+
+      <!-- CASE 1 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title" data-i18n="cases.c1.title">Modernização de Plataforma de BI — Setor Varejista</div>
+          <div class="case-badge" data-i18n="cases.c1.badge">Varejo | +100 usuários</div>
+        </div>
+        <div class="case-body">
+          <div class="case-problem">
+            <div class="case-block-title" data-i18n="cases.problem">Problema</div>
+            <div class="case-problem-list">
+              <div class="case-problem-item" data-i18n="cases.c1.p1">Painéis bloqueados com múltiplos acessos simultâneos no QlikView — limite de sessões comprometia a operação em horários de pico.</div>
+              <div class="case-problem-item" data-i18n="cases.c1.p2">ETL concorrente com produção disputava recursos do ERP Protheus, causando quedas e instabilidade.</div>
+              <div class="case-problem-item" data-i18n="cases.c1.p3">Infraestrutura suportava apenas ~100 usuários com degradação de performance e sem escalabilidade.</div>
+            </div>
+          </div>
+          <div class="case-solution">
+            <div class="case-block-title" data-i18n="cases.solution">Solução</div>
+            <div class="case-solution-text" data-i18n="cases.c1.sol">Migração para Power BI Embedded com Arquitetura Medallion (Bronze → Silver → Gold) para ingestão, limpeza e camada semântica. Portal desenvolvido em React Native com atualização near real-time.</div>
+          </div>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-value">1.000+</div>
+              <div class="case-metric-label" data-i18n="cases.c1.m1">Acessos Simultâneos</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">5s</div>
+              <div class="case-metric-label" data-i18n="cases.c1.m2">Atualização Near Real-Time</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">↓</div>
+              <div class="case-metric-label" data-i18n="cases.c1.m3">Custo de Licenciamento</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">Zero</div>
+              <div class="case-metric-label" data-i18n="cases.c1.m4">Quedas no ERP</div>
+            </div>
+          </div>
+          <div class="case-stack">
+            <span class="case-tag">Power BI Embedded</span>
+            <span class="case-tag">Arquitetura Medallion</span>
+            <span class="case-tag">React Native</span>
+            <span class="case-tag">ETL / DW</span>
+            <span class="case-tag">ERP Protheus</span>
+            <span class="case-tag">QlikView → Migrado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 2 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-title" data-i18n="cases.c2.title">Previsibilidade de Evasão de Alunos — ML + Power BI</div>
+          <div class="case-badge" data-i18n="cases.c2.badge">Grande Rede de Faculdades</div>
+        </div>
+        <div class="case-body">
+          <div class="case-problem">
+            <div class="case-block-title" data-i18n="cases.problem">Problema</div>
+            <div class="case-problem-list">
+              <div class="case-problem-item" data-i18n="cases.c2.p1">Evasão de alunos detectada apenas após ocorrida — sem capacidade de intervenção antecipada.</div>
+              <div class="case-problem-item" data-i18n="cases.c2.p2">Dados fragmentados em silos: inadimplência, frequência e desempenho não eram cruzados.</div>
+              <div class="case-problem-item" data-i18n="cases.c2.p3">Sem score individual de risco, equipes pedagógica e financeira agiam de forma reativa.</div>
+            </div>
+          </div>
+          <div class="case-solution">
+            <div class="case-block-title" data-i18n="cases.solution">Solução</div>
+            <div class="case-solution-text" data-i18n="cases.c2.sol">Pipeline ETL cruzando acesso ao sistema, inadimplência, desempenho, frequência e engajamento. Modelo de ML supervisionado com Feature Engineering gerando score de evasão (0–100%) por aluno, visualizado no Power BI com classificação Alto/Médio/Baixo risco.</div>
+          </div>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-value">5</div>
+              <div class="case-metric-label" data-i18n="cases.c2.m1">Fontes de Dados Cruzadas</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">ML</div>
+              <div class="case-metric-label" data-i18n="cases.c2.m2">Score Preditivo por Aluno</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">↑</div>
+              <div class="case-metric-label" data-i18n="cases.c2.m3">Receita Recorrente</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">↓</div>
+              <div class="case-metric-label" data-i18n="cases.c2.m4">Taxa de Evasão</div>
+            </div>
+          </div>
+          <div class="case-stack">
+            <span class="case-tag">Machine Learning</span>
+            <span class="case-tag">Python / Scikit-learn</span>
+            <span class="case-tag">ETL / Pipeline</span>
+            <span class="case-tag">Power BI</span>
+            <span class="case-tag">Feature Engineering</span>
+            <span class="case-tag">Score de Propensão</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- FORMACAO -->
 <section id="formacao">
   <div class="container">
@@ -1043,6 +1285,32 @@
       'contact.phone': 'Telefone',
 
       'footer.text': '© 2025 Josue Serafim — Analista de Dados & Data Scientist',
+
+      'nav.cases': 'Cases',
+      'cases.label': 'Resultados',
+      'cases.title': 'Cases de sucesso',
+      'cases.problem': 'Problema',
+      'cases.solution': 'Solução',
+      'cases.c1.title': 'Modernização de Plataforma de BI — Setor Varejista',
+      'cases.c1.badge': 'Varejo | +100 usuários',
+      'cases.c1.p1': 'Painéis bloqueados com múltiplos acessos simultâneos no QlikView — limite de sessões comprometia a operação em horários de pico.',
+      'cases.c1.p2': 'ETL concorrente com produção disputava recursos do ERP Protheus, causando quedas e instabilidade.',
+      'cases.c1.p3': 'Infraestrutura suportava apenas ~100 usuários com degradação de performance e sem escalabilidade.',
+      'cases.c1.sol': 'Migração para Power BI Embedded com Arquitetura Medallion (Bronze → Silver → Gold). Portal em React Native com atualização near real-time e ETL desacoplado do ERP.',
+      'cases.c1.m1': 'Acessos Simultâneos',
+      'cases.c1.m2': 'Atualização Near Real-Time',
+      'cases.c1.m3': 'Custo de Licenciamento',
+      'cases.c1.m4': 'Quedas no ERP',
+      'cases.c2.title': 'Previsibilidade de Evasão de Alunos — ML + Power BI',
+      'cases.c2.badge': 'Grande Rede de Faculdades',
+      'cases.c2.p1': 'Evasão detectada apenas após ocorrida — sem capacidade de intervenção antecipada.',
+      'cases.c2.p2': 'Dados fragmentados em silos: inadimplência, frequência e desempenho não eram cruzados.',
+      'cases.c2.p3': 'Sem score individual de risco, equipes agiam de forma reativa.',
+      'cases.c2.sol': 'Pipeline ETL cruzando 5 fontes de dados. Modelo de ML supervisionado gerando score de evasão (0–100%) por aluno, visualizado no Power BI com classificação Alto/Médio/Baixo risco.',
+      'cases.c2.m1': 'Fontes de Dados Cruzadas',
+      'cases.c2.m2': 'Score Preditivo por Aluno',
+      'cases.c2.m3': 'Receita Recorrente',
+      'cases.c2.m4': 'Taxa de Evasão',
     },
     en: {
       'nav.about': 'About',
@@ -1111,6 +1379,32 @@
       'contact.phone': 'Phone',
 
       'footer.text': '© 2025 Josue Serafim — Data Analyst & Data Scientist',
+
+      'nav.cases': 'Cases',
+      'cases.label': 'Results',
+      'cases.title': 'Success Cases',
+      'cases.problem': 'Problem',
+      'cases.solution': 'Solution',
+      'cases.c1.title': 'BI Platform Modernization — Retail Sector',
+      'cases.c1.badge': 'Retail | +100 users',
+      'cases.c1.p1': 'Dashboards blocked with multiple simultaneous accesses in QlikView — session limits disrupted operations during peak hours.',
+      'cases.c1.p2': 'ETL competing with production consumed ERP Protheus resources, causing outages and instability.',
+      'cases.c1.p3': 'Infrastructure supported only ~100 users with performance degradation and no scalability path.',
+      'cases.c1.sol': 'Migration to Power BI Embedded with Medallion Architecture (Bronze → Silver → Gold). React Native portal with near real-time updates and ETL decoupled from ERP.',
+      'cases.c1.m1': 'Simultaneous Users',
+      'cases.c1.m2': 'Near Real-Time Update',
+      'cases.c1.m3': 'Licensing Cost',
+      'cases.c1.m4': 'ERP Outages',
+      'cases.c2.title': 'Student Dropout Prediction — ML + Power BI',
+      'cases.c2.badge': 'Large University Network',
+      'cases.c2.p1': 'Dropout detected only after it occurred — no capacity for early intervention.',
+      'cases.c2.p2': 'Data fragmented in silos: delinquency, attendance and performance were not crossed.',
+      'cases.c2.p3': 'Without individual risk scores, teams acted reactively.',
+      'cases.c2.sol': 'ETL pipeline crossing 5 data sources. Supervised ML model generating a dropout score (0–100%) per student, visualized in Power BI with High/Medium/Low risk classification.',
+      'cases.c2.m1': 'Data Sources Crossed',
+      'cases.c2.m2': 'Predictive Score per Student',
+      'cases.c2.m3': 'Recurring Revenue',
+      'cases.c2.m4': 'Dropout Rate',
     }
   };
 
